@@ -204,20 +204,24 @@ body {
 }
 
 /* ===== 播放器控件 ===== */
+/* 播放器按钮 */
 #play-pause-btn {
     min-width: 44px;
     min-height: 44px;
+    padding: 8px;          /* ← 给 SVG 留空间，Safari 就能渲染 */
+    background: none;
+    border: none;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0;
-    background: none;
-    border: none;
 }
 
+/* SVG 明确尺寸 + 点透 */
 .ctrl-icon {
-    pointer-events: none; /* 点击穿透到 button */
-    color: var(--text-primary, #1a1a1a);
+    width: 24px;
+    height: 24px;
+    pointer-events: none;  /* ← Safari 整按钮可点击 */
+    display: block;
 }
 
 /* 切换章自动暂停 */

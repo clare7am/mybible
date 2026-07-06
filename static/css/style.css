@@ -18,9 +18,9 @@ body {
     color: var(--text-primary);
     line-height: 1.6;
 
-    /* 防止被固定顶底栏遮挡 */
-    padding-top: 72px; 
-    padding-bottom: calc(80px + env(safe-area-inset-bottom));
+    /* ✅ 防止被固定顶底栏遮挡（iOS 全屏安全区） */
+    padding-top: calc(56px + env(safe-area-inset-top));
+    padding-bottom: calc(64px + env(safe-area-inset-bottom));
 }
 
 /* ===== Top Bar — 书卷/章节选择 ===== */
@@ -38,6 +38,10 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+
+    /* ✅ iOS 灵动岛 / 刘海安全区 */
+    padding-top: env(safe-area-inset-top);
+    box-sizing: border-box;
 }
 
 .select-row {
@@ -116,13 +120,13 @@ body {
 }
 
 .word.active {
-    background-color: #fff566; /* 金色高亮，同原 MyBible */
+    background-color: #fff566;
 }
 
 /* ===== 底部播放器 ===== */
 .player {
     position: fixed;
-    bottom: env(safe-area-inset-bottom);
+    bottom: 0;
     left: 0;
     width: 100%;
     height: 64px;
@@ -177,24 +181,12 @@ body {
 /* 滑块圆点（WebKit） */
 #progress::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 12px;
-    height: 12px;
+    width: 16px;
+    height: 16px;
     border-radius: 50%;
     background: var(--accent-color);
     border: none;
     box-shadow: 0 0 2px rgba(0,0,0,0.2);
-}
-
-/* ===== 仅扩大触控区域，不改变外观 ===== */
-#progress {
-    padding: 14px 0;
-    box-sizing: border-box;
-}
-
-/* 滑块稍微放大一点点，但不破坏风格 */
-#progress::-webkit-slider-thumb {
-    width: 16px;
-    height: 16px;
 }
 
 /* Firefox 保持一致 */
@@ -203,12 +195,17 @@ body {
     height: 16px;
 }
 
+/* 增大触控区域 */
+#progress {
+    padding: 14px 0;
+    box-sizing: border-box;
+}
+
 /* ===== 播放器控件 ===== */
-/* 播放器按钮 */
 #play-pause-btn {
     min-width: 44px;
     min-height: 44px;
-    padding: 8px;          /* ← 给 SVG 留空间，Safari 就能渲染 */
+    padding: 8px;
     background: none;
     border: none;
     display: flex;
@@ -216,21 +213,19 @@ body {
     justify-content: center;
 }
 
-/* SVG 明确尺寸 + 点透 */
 .ctrl-icon {
     width: 24px;
     height: 24px;
-    pointer-events: none;  /* ← Safari 整按钮可点击 */
+    pointer-events: none;
     display: block;
 }
 
-/* 切换章自动暂停 */
+/* 禁用态 */
 #play-pause-btn.disabled {
     opacity: 0.4;
     cursor: not-allowed;
 }
 
-/* 播放器不可用 */
 #progress:disabled {
     opacity: 0.35;
     cursor: not-allowed;

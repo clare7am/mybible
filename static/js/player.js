@@ -136,7 +136,7 @@ function disablePlayer() {
 
 /* =========================
    章节切换时统一入口
-   ✅ 不加载音频，只保存 URL
+   不加载音频，只保存 URL
    ========================= */
 function updateAudio() {
     const url = getAudioUrl();
@@ -151,11 +151,11 @@ function updateAudio() {
     audio.pause();
     audio.currentTime = 0;
 
-    // ✅ 关键：移除 src，不触发下载
+    // 关键：移除 src，不触发下载
     audio.removeAttribute('src');
     audio.load();
 
-    // ✅ 暂存 URL，等用户点击播放再用
+    // 暂存 URL，等用户点击播放再用
     audio._pendingUrl = url;
 
     if (!url) {
@@ -165,24 +165,38 @@ function updateAudio() {
 
     enablePlayer();
 
-    // ✅ 只重置图标，不加载音频
+    // 只重置图标，不加载音频
     iconPlay.style.display = 'block';
     iconPause.style.display = 'none';
+
+    // 如果是“自动播放模式”，立即加载并播放
+    if (shouldAutoPlay) {
+        audio.src = url;
+        audio.load();
+        audio.play().catch(() => {
+            // iOS 可能需要用户手势，降级为暂停
+            syncPlayButtonIcon();
+        });
+        shouldAutoPlay = false;
+    }
 }
 
 /* =========================
    播放 / 暂停
-   ✅ 第一次播放才真正加载音频
+   第一次播放才真正加载音频
    ========================= */
+let shouldAutoPlay = false;
+
 function togglePlay() {
     if (playPauseBtn.disabled) return;
 
-    // ✅ 按需加载
+    // 按需加载
     if (!audio.src && audio._pendingUrl) {
         audio.src = audio._pendingUrl;
         audio.load();
     }
 
+    shouldAutoPlay = false; 
     audio.paused ? audio.play() : audio.pause();
 }
 
@@ -213,4 +227,7 @@ audio.addEventListener('ended', () => {
     audio.currentTime = 0;
     progress.value = 0;
     syncPlayButtonIcon();
+    // 自动播放下一章
+    shouldAutoPlay = true;
+    nextChapter();
 });

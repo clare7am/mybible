@@ -31,7 +31,7 @@ body {
     left: 0;
     width: 100%;
 
-    height: 60px;
+    height: calc(60px + env(safe-area-inset-top));
 
     background: var(--card-bg);
     border-bottom: 1px solid var(--border-color);
@@ -283,6 +283,6 @@ body {
     }
 
     .verses-container {
-        padding-bottom: 80px;
+        padding-bottom: 56px;
     }
 }

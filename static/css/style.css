@@ -48,7 +48,6 @@ body {
 }
 
 .select-row {
-    padding-top: calc(env(safe-area-inset-bottom));
     display: flex;
     gap: 12px;
 }

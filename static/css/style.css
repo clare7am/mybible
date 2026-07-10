@@ -138,37 +138,70 @@ body {
     display: flex;
     align-items: center;
     padding: 0 16px;
-    gap: 10px;
+    gap: 12px;
 }
 
-@media (hover: hover) and (pointer: fine) {
-    .player {
-        bottom: 0;
-    }
+/* ===== 自定义播放控件 ===== */
+.player-controls-custom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    flex-shrink: 0;
 }
 
-/* 播放器按钮 */
-.player button {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius);
-    padding: 6px 14px;
-    font-size: 13px;
-    color: var(--text-primary);
+/* 所有控制按钮：无边框、无背景、无外圈 */
+.ctrl-btn {
+    background: none;
+    border: none;
+    padding: 0;
     cursor: pointer;
-    box-shadow: var(--shadow);
-    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.1s ease;
 }
 
-.player button:hover {
-    background: #f2f2f7;
+.ctrl-btn:hover {
+    transform: scale(1.08);
 }
 
-.player button:active {
-    background: #e5e5ea;
+.ctrl-btn:active {
+    transform: scale(0.95);
 }
 
-/* 进度条 — iOS 细条 */
+.ctrl-btn:focus {
+    outline: none;
+}
+
+/* SVG 图标通用 */
+.icon-svg {
+    fill: var(--text-primary);
+    width: 100%;
+    height: 100%;
+}
+
+/* 上一章 / 下一章：小尺寸 + 竖线 */
+.prev-chapter,
+.next-chapter {
+    width: 30px;
+    height: 30px;
+    opacity: 0.85;
+}
+
+/* 播放按钮：大尺寸 */
+.play-large {
+    width: 45px;
+    height: 45px;
+}
+
+/* 禁用态 */
+.ctrl-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+/* ===== 进度条 — iOS 细条 ===== */
 #progress {
     flex: 1;
     height: 4px;
@@ -199,31 +232,6 @@ body {
 #progress {
     padding: 14px 0;
     box-sizing: border-box;
-}
-
-/* ===== 播放器控件 ===== */
-#play-pause-btn {
-    min-width: 44px;
-    min-height: 44px;
-    padding: 8px;
-    background: none;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.ctrl-icon {
-    width: 24px;
-    height: 24px;
-    pointer-events: none;
-    display: block;
-}
-
-/* 禁用态 */
-#play-pause-btn.disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
 }
 
 #progress:disabled {

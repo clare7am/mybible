@@ -1,9 +1,9 @@
 const audio = document.getElementById('audio-player');
 const progress = document.getElementById('progress');
-const playPauseBtn = document.getElementById('play-pause-btn');
+const playPauseBtn = document.getElementById('play-pause');
 
-const iconPlay = document.getElementById('icon-play');
-const iconPause = document.getElementById('icon-pause');
+const iconPlay = document.getElementById('icon-play-big');
+const iconPause = document.getElementById('icon-pause-big');
 
 /* =========================
    书卷 → 音频文件名映射

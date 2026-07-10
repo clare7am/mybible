@@ -17,8 +17,10 @@ body {
     color: var(--text-primary);
     line-height: 1.6;
 
-    /* ✅ 防止被固定顶底栏遮挡（iOS 全屏安全区） */
-    padding-top: calc(56px + env(safe-area-inset-top));
+    /* 顶部 = 导航栏高度 + 灵动岛 */
+    padding-top: calc(60px + env(safe-area-inset-top));
+
+    /* 底部 = 播放器 + Home Indicator */
     padding-bottom: calc(64px + env(safe-area-inset-bottom));
 }
 
@@ -28,7 +30,9 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height:  calc(60px + env(safe-area-inset-bottom));
+
+    height: 60px;
+
     background: var(--card-bg);
     border-bottom: 1px solid var(--border-color);
     box-shadow: var(--shadow);
@@ -38,7 +42,7 @@ body {
     justify-content: center;
     align-items: center;
 
-    /* ✅ iOS 灵动岛 / 刘海安全区 */
+    /* 灵动岛 */
     padding-top: env(safe-area-inset-top);
     box-sizing: border-box;
 }
@@ -138,6 +142,10 @@ body {
     align-items: center;
     gap: 24px;
     padding: 0 28px;
+
+    /* ✅ 防止盖住 Home Indicator */
+    padding-bottom: env(safe-area-inset-bottom);
+    box-sizing: border-box;
 }
 
 /* ===== 自定义播放控件 ===== */
@@ -207,7 +215,6 @@ body {
     border-radius: 2px;
     accent-color: var(--accent-color);
     cursor: pointer;
-    margin-right: 52px;
 
 }
 
@@ -246,20 +253,21 @@ body {
         flex-direction: column-reverse;
         height: auto;
         padding: 12px 16px;
+        padding-bottom: calc(12px + env(safe-area-inset-bottom)); /* 保留安全区 */
         gap: 0;
-        align-items: stretch;   /* ✅ 关键 */
+        align-items: stretch;
     }
 
     /* 进度条 */
     #progress {
-        width: 91%;
+        width: 99%;
         margin-right: 0;       /* 清除桌面端干扰 */
     }
 
     /* 按钮组 */
     .player-controls-custom {
         justify-content: center;
-        width: 91%;
+        width: 99%;
         gap: 36px;
     }
 

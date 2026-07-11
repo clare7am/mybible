@@ -20,21 +20,42 @@
 <body>
 
 <div class="box">
-    <!-- 书卷下拉 -->
     <div class="select-row">
+        <!-- 书卷 -->
         <div class="select-group">
-            <select id="book" onchange="onBookChange(this)">
-                <!-- ✅ JS 会动态填充 -->
-            </select>
+            <select id="book" onchange="onBookChange(this)"></select>
         </div>
 
-        <!-- 章节下拉 -->
+        <!-- 章节 -->
         <div class="select-group">
-            <select id="chapter" onchange="onChapterChange(this)">
-                <!-- ✅ JS 会动态填充 -->
-            </select>
+            <select id="chapter" onchange="onChapterChange(this)"></select>
         </div>
+
+        <!-- 搜索按钮 -->
+        <button id="search-toggle" class="icon-btn" aria-label="搜索">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="7"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+        </button>
     </div>
+</div>
+
+<div id="search-overlay" class="search-overlay"></div>
+
+<!-- 搜索侧边栏 -->
+<div id="search-sidebar" class="search-sidebar">
+    <div class="search-sidebar-header">
+        <input
+            id="search-input"
+            type="text"
+            placeholder="输入关键词（目前仅支持中文）"
+            autocomplete="off"
+        />
+        <button id="search-close" class="search-close-btn">×</button>
+    </div>
+    <div id="search-results" class="search-sidebar-body"></div>
 </div>
 
 <div id="verses" class="verses-container"></div>
@@ -73,6 +94,7 @@
 <audio id="audio-player" preload="none"></audio>
 
 <!-- ✅ JS（去 Flask） -->
+<script src="./static/js/search.js"></script>
 <script src="./static/js/highlight.js"></script>
 <script src="./static/js/player.js"></script>
 

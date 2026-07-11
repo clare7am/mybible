@@ -254,7 +254,7 @@ body {
     margin-bottom: 16px;
     padding-bottom: 12px;
     border-bottom: 1px solid #eee;
-    scroll-margin-top: 75px; /*找到后高亮时不要贴顶*/
+    scroll-margin-top:  calc(75px + env(safe-area-inset-top)); /*找到后高亮时不要贴顶*/
 }
 
 .verse-num {

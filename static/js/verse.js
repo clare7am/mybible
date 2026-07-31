@@ -29,13 +29,15 @@ function getOssJsonUrl(bookId, chapter) {
     return `${OSS_JSON_BASE}/${bookStr}_${abbr}_${chapterStr}.json?v=${window.APP_VERSION}`;
 }
 
-function loadVerses() {
+/* ========= 加载经文（支持 onReady 回调）========= */
+function loadVerses(onReady) {
     const bookId = Bible.book;
     const chapter = Bible.chapter;
     const container = document.getElementById("verses");
 
     if (!bookId || !chapter) {
         container.innerHTML = "";
+        onReady && onReady();
         return;
     }
 
@@ -50,19 +52,18 @@ function loadVerses() {
         })
         .then(data => {
             console.log("✅ OSS 分词 JSON");
-            renderOssVerses(data.verses, container);
+            renderOssVerses(data.verses, container, onReady);
         })
         .catch(() => {
             console.warn("⚠️ 回退到本地 JSON");
-            loadLocalVerses(bookId, chapter, container);
+            loadLocalVerses(bookId, chapter, container, onReady);
         });
 }
 
-function loadLocalVerses(bookId, chapter, container) {
-    // ✅ 修正后的路径：不使用 Abbr，直接拼接数字
+function loadLocalVerses(bookId, chapter, container, onReady) {
     const url = `./static/verses/${String(bookId).padStart(2, "0")}_${String(chapter).padStart(3, "0")}.json`;
 
-    console.log("尝试加载本地 JSON:", url); // 打印一下路径，方便调试
+    console.log("尝试加载本地 JSON:", url);
 
     fetch(url)
         .then(res => {
@@ -72,16 +73,17 @@ function loadLocalVerses(bookId, chapter, container) {
             return res.json();
         })
         .then(data => {
-            renderPlainVerses(data, container);
+            renderPlainVerses(data, container, onReady);
         })
         .catch(err => {
             console.error("本地经文加载失败:", err);
             container.innerHTML = "<p>加载失败：未找到本地经文文件</p>";
+            onReady && onReady();
         });
 }
 
 /* ========= 分词渲染（OSS） ========= */
-function renderOssVerses(verses, container) {
+function renderOssVerses(verses, container, onReady) {
     container.innerHTML = "";
     let index = 0;
     const BATCH_SIZE = 3;
@@ -123,13 +125,19 @@ function renderOssVerses(verses, container) {
             frag.appendChild(block);
         }
         container.appendChild(frag);
-        if (index < verses.length) requestAnimationFrame(renderBatch);
+
+        if (index < verses.length) {
+            requestAnimationFrame(renderBatch);
+        } else {
+            // ✅ 全部渲染完成，通知调用方
+            onReady && onReady();
+        }
     }
     renderBatch();
 }
 
 /* ========= 纯文本渲染（本地） ========= */
-function renderPlainVerses(data, container) {
+function renderPlainVerses(data, container, onReady) {
     container.innerHTML = data.map(v => `
         <div class="verse-block">
             <div class="verse-num">${v.verse}</div>
@@ -137,4 +145,7 @@ function renderPlainVerses(data, container) {
             <div class="verse-cn">${v.text_cn}</div>
         </div>
     `).join("");
+
+    // ✅ 渲染完成，通知调用方
+    onReady && onReady();
 }

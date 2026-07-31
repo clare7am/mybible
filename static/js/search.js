@@ -3,10 +3,17 @@ let bibleIndex = null;
 let bibleIndexLoading = false;
 
 async function buildBibleIndex() {
-    if (bibleIndex) return bibleIndex;
+    // 已加载过且有效
+    if (bibleIndex && bibleIndex.length > 0) return bibleIndex;
+
+    // 正在加载 → 等待（最多30秒）
     if (bibleIndexLoading) {
-        while (bibleIndexLoading) await new Promise(r => setTimeout(r, 50));
-        return bibleIndex;
+        let waited = 0;
+        while (bibleIndexLoading && waited < 30000) {
+            await new Promise(r => setTimeout(r, 100));
+            waited += 100;
+        }
+        return bibleIndex; // 可能是 null 或 []
     }
 
     bibleIndexLoading = true;
@@ -15,14 +22,16 @@ async function buildBibleIndex() {
         const resp = await fetch(
             'https://c7-json.oss-cn-beijing.aliyuncs.com/verse_index.json'
         );
-        if (!resp.ok) throw new Error('verse_index.json 加载失败');
+        if (!resp.ok) throw new Error('verse_index.json 加载失败: HTTP ' + resp.status);
 
         const data = await resp.json();
 
         const bookMap = {};
-        document.querySelectorAll('#book option').forEach(opt => {
-            bookMap[opt.value] = opt.text;
-        });
+        if (window._allBooks && window._allBooks.length > 0) {
+            window._allBooks.forEach(b => {
+                bookMap[b.id] = b.name_cn;
+            });
+        }
 
         bibleIndex = data.map(v => ({
             bookId: v.book_id,
@@ -36,7 +45,7 @@ async function buildBibleIndex() {
         console.log(`✅ 搜索索引加载完成，共 ${bibleIndex.length} 节`);
     } catch (e) {
         console.error('搜索索引加载失败:', e);
-        bibleIndex = [];
+        bibleIndex = null; // ✅ 关键：设为 null 而不是 []，下次可重试
     } finally {
         bibleIndexLoading = false;
     }
@@ -44,7 +53,7 @@ async function buildBibleIndex() {
     return bibleIndex;
 }
 
-/* ========= 搜索核心（已加入分页加载）========= */
+/* ========= 搜索核心（分页加载）========= */
 async function doSearch(keyword) {
     const kw = keyword.trim();
     const container = document.getElementById('search-results');
@@ -55,17 +64,21 @@ async function doSearch(keyword) {
     }
 
     container.style.display = 'block';
-    container.innerHTML = '<p>正在建立搜索索引（首次较慢）…</p>';
+
+    // 显示 loading（每次搜索都先显示，避免残留旧内容）
+    container.innerHTML = '<div class="search-loading">正在建立搜索索引（首次较慢）…</div>';
 
     try {
         const index = await buildBibleIndex();
 
+        // 如果 container 已被清空（用户删了输入），就不继续
+        if (!container.isConnected || container.style.display === 'none') return;
+
         if (!index || index.length === 0) {
-            container.innerHTML = `<p>搜索索引尚未就绪，请稍后重试</p>`;
+            container.innerHTML = `<div class="search-empty">搜索索引加载失败，请检查网络后重试</div>`;
             return;
         }
 
-        // ✅ Unicode 归一 + 繁简兼容（关键）
         const norm = s => s.normalize('NFC').replace(/愛/g, '爱');
         const kwNorm = norm(kw);
 
@@ -74,30 +87,37 @@ async function doSearch(keyword) {
         );
 
         if (hits.length === 0) {
-            container.innerHTML = `<p>未找到「${kw}」</p>`;
+            container.innerHTML = `<div class="search-empty">未找到「${escapeHtml(kw)}」</div>`;
             return;
         }
 
-        container.innerHTML = `<p>找到 ${hits.length} 节：</p>`;
+        // 清空 loading，开始渲染
+        container.innerHTML = '';
+
+        // 结果计数头部
+        const header = document.createElement('div');
+        header.className = 'search-result-header';
+        header.textContent = `找到 ${hits.length} 节`;
+        container.appendChild(header);
+
         const ul = document.createElement('ul');
-        ul.style.paddingLeft = '1em';
+        ul.className = 'search-result-list';
         container.appendChild(ul);
 
-        /* ===== 分页状态 ===== */
         let rendered = 0;
         const PAGE = 200;
 
         function renderNextBatch() {
-            // ✅ 防止重复渲染
             if (rendered >= hits.length) return;
 
             const slice = hits.slice(rendered, rendered + PAGE);
 
             slice.forEach(r => {
                 const li = document.createElement('li');
-                li.style.cursor = 'pointer';
-                li.style.marginBottom = '6px';
-                li.innerHTML = `<b>${r.ref}</b><br>${escapeHtml(r.text_cn)}`;
+                li.className = 'search-result-item';
+                li.innerHTML =
+                    `<span class="search-result-ref">${r.ref}</span>` +
+                    `<span class="search-result-text">${escapeHtml(r.text_cn)}</span>`;
                 li.onclick = () => {
                     jumpToVerse(r.bookId, r.chapter, r.verse);
                 };
@@ -106,50 +126,67 @@ async function doSearch(keyword) {
 
             rendered += slice.length;
 
-            // ✅ 移除旧的“加载更多”
             const oldMore = ul.querySelector('.load-more');
             if (oldMore) oldMore.remove();
 
-            // ✅ 添加新按钮
             if (rendered < hits.length) {
                 const more = document.createElement('li');
                 more.textContent = '加载更多…';
                 more.className = 'load-more';
-                more.style.cursor = 'pointer';
-                more.style.listStyle = 'none';
-                more.style.padding = '8px 0';
-                more.style.color = '#007aff';
                 more.onclick = renderNextBatch;
                 ul.appendChild(more);
             }
         }
 
-        // ✅ 首次渲染
         renderNextBatch();
     } catch (e) {
-        container.innerHTML = `<p>搜索失败，请重试</p>`;
+        container.innerHTML = `<div class="search-empty">搜索失败，请重试</div>`;
         console.error(e);
     }
 }
 
-/* ========= 跳转到经文 ========= */
+/* ========= 跳转到经文（onReady 回调版，100% 稳定）========= */
 function jumpToVerse(bookId, chapter, verse) {
-    const bookSel = document.getElementById('book');
-    const chSel = document.getElementById('chapter');
+    // 关闭搜索面板
+    const overlay = document.getElementById('search-overlay');
+    const sidebar = document.getElementById('search-sidebar');
+    const input = document.getElementById('search-input');
+    const results = document.getElementById('search-results');
+    if (overlay) overlay.classList.remove('open');
+    if (sidebar) sidebar.classList.remove('open');
+    if (input) input.value = '';
+    if (results) {
+        results.innerHTML = '';
+        results.style.display = 'none';
+    }
 
-    bookSel.value = bookId;
-    onBookChange(bookSel);
+    // 设置目标
+    Bible.book = bookId;
+    Bible.chapter = chapter;
 
-    const wait = setInterval(() => {
-        if (chSel.options.length > 0) {
-            clearInterval(wait);
-            chSel.value = chapter;
-            onChapterChange(chSel);
+    // ✅ 先加载章节 JSON（同步完 select）
+    loadChaptersForBook(bookId, chapter).then(() => {
 
-            setTimeout(() => {
-                document.querySelectorAll('.verse-block').forEach(block => {
+        // 更新 select
+        const chSel = document.getElementById('chapter');
+        if (chSel) chSel.value = chapter;
+
+        // ✅ 关键：loadVerses 传入 onReady 回调
+        // 经文渲染完成后才会执行 → 100% 稳定
+        loadVerses(() => {
+            // 用 requestAnimationFrame 确保 DOM 已布局
+            requestAnimationFrame(() => {
+                const blocks = document.querySelectorAll('.verse-block');
+                if (blocks.length === 0) {
+                    console.warn('跳转：经文未渲染');
+                    return;
+                }
+
+                let found = false;
+                blocks.forEach(block => {
                     const num = block.querySelector('.verse-num');
                     if (num && Number(num.textContent) === verse) {
+                        found = true;
                         block.scrollIntoView({ behavior: 'smooth', block: 'start' });
                         block.classList.add('verse-highlight');
                         setTimeout(() => {
@@ -157,9 +194,17 @@ function jumpToVerse(bookId, chapter, verse) {
                         }, 2200);
                     }
                 });
-            }, 300);
-        }
-    }, 50);
+
+                // 没找到精确 verse → 至少滚到章节顶部
+                if (!found && blocks[0]) {
+                    blocks[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+    }).catch(e => {
+        console.error('跳转加载失败:', e);
+    });
 }
 
 /* ========= 工具函数 ========= */
@@ -179,37 +224,42 @@ document.addEventListener('DOMContentLoaded', () => {
     let timer = null;
 
     function openSidebar() {
-        overlay.classList.add('open');
-        sidebar.classList.add('open');
-        input.focus();
+        if (overlay) overlay.classList.add('open');
+        if (sidebar) sidebar.classList.add('open');
+        if (input) input.focus();
     }
 
     function closeSidebar() {
-        overlay.classList.remove('open');
-        sidebar.classList.remove('open');
-        input.value = '';
-        results.style.display = 'none';
+        if (overlay) overlay.classList.remove('open');
+        if (sidebar) sidebar.classList.remove('open');
+        if (input) input.value = '';
+        if (results) {
+            results.innerHTML = '';
+            results.style.display = 'none';
+        }
     }
 
-    toggle.onclick = () => openSidebar();
-    closeBtn.onclick = () => closeSidebar();
-    overlay.onclick = () => closeSidebar();
+    if (toggle) toggle.onclick = () => openSidebar();
+    if (closeBtn) closeBtn.onclick = () => closeSidebar();
+    if (overlay) overlay.onclick = () => closeSidebar();
 
-    input.addEventListener('input', () => {
-        clearTimeout(timer);
-        const kw = input.value.trim();
-        if (!kw) {
-            results.innerHTML = '';
-            return;
-        }
-        openSidebar();
-        timer = setTimeout(() => doSearch(kw), 300);
-    });
-
-    input.addEventListener('keydown', e => {
-        if (e.key === 'Enter') {
+    if (input) {
+        input.addEventListener('input', () => {
             clearTimeout(timer);
-            doSearch(input.value.trim());
-        }
-    });
+            const kw = input.value.trim();
+            if (!kw) {
+                if (results) results.innerHTML = '';
+                return;
+            }
+            openSidebar();
+            timer = setTimeout(() => doSearch(kw), 300);
+        });
+
+        input.addEventListener('keydown', e => {
+            if (e.key === 'Enter') {
+                clearTimeout(timer);
+                doSearch(input.value.trim());
+            }
+        });
+    }
 });

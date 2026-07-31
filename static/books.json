@@ -1,294 +1,84 @@
 [
-  {
-    "id": 1,
-    "name_cn": "创世纪"
-  },
-  {
-    "id": 2,
-    "name_cn": "出谷纪"
-  },
-  {
-    "id": 3,
-    "name_cn": "肋未纪"
-  },
-  {
-    "id": 4,
-    "name_cn": "户籍纪"
-  },
-  {
-    "id": 5,
-    "name_cn": "申命纪"
-  },
-  {
-    "id": 6,
-    "name_cn": "若苏厄书"
-  },
-  {
-    "id": 7,
-    "name_cn": "民长纪"
-  },
-  {
-    "id": 8,
-    "name_cn": "卢德传"
-  },
-  {
-    "id": 9,
-    "name_cn": "撒慕尔纪上"
-  },
-  {
-    "id": 10,
-    "name_cn": "撒慕尔纪下"
-  },
-  {
-    "id": 11,
-    "name_cn": "列王纪上"
-  },
-  {
-    "id": 12,
-    "name_cn": "列王纪下"
-  },
-  {
-    "id": 13,
-    "name_cn": "编年纪上"
-  },
-  {
-    "id": 14,
-    "name_cn": "编年纪下"
-  },
-  {
-    "id": 15,
-    "name_cn": "厄斯德拉上"
-  },
-  {
-    "id": 16,
-    "name_cn": "厄斯德拉下(乃赫米雅)"
-  },
-  {
-    "id": 17,
-    "name_cn": "多俾亚传"
-  },
-  {
-    "id": 18,
-    "name_cn": "友弟德传"
-  },
-  {
-    "id": 19,
-    "name_cn": "艾斯德尔传"
-  },
-  {
-    "id": 20,
-    "name_cn": "玛加伯上"
-  },
-  {
-    "id": 21,
-    "name_cn": "玛加伯下"
-  },
-  {
-    "id": 22,
-    "name_cn": "约伯传"
-  },
-  {
-    "id": 23,
-    "name_cn": "圣咏集"
-  },
-  {
-    "id": 24,
-    "name_cn": "箴言篇"
-  },
-  {
-    "id": 25,
-    "name_cn": "训道篇"
-  },
-  {
-    "id": 26,
-    "name_cn": "雅歌"
-  },
-  {
-    "id": 27,
-    "name_cn": "智慧篇"
-  },
-  {
-    "id": 28,
-    "name_cn": "德训篇"
-  },
-  {
-    "id": 29,
-    "name_cn": "依撒意亚"
-  },
-  {
-    "id": 30,
-    "name_cn": "耶肋米亚"
-  },
-  {
-    "id": 31,
-    "name_cn": "哀歌"
-  },
-  {
-    "id": 32,
-    "name_cn": "巴路克"
-  },
-  {
-    "id": 33,
-    "name_cn": "厄则克耳"
-  },
-  {
-    "id": 34,
-    "name_cn": "达尼尔"
-  },
-  {
-    "id": 35,
-    "name_cn": "欧瑟亚"
-  },
-  {
-    "id": 36,
-    "name_cn": "岳厄尔"
-  },
-  {
-    "id": 37,
-    "name_cn": "亚毛斯"
-  },
-  {
-    "id": 38,
-    "name_cn": "亚北底亚"
-  },
-  {
-    "id": 39,
-    "name_cn": "约纳"
-  },
-  {
-    "id": 40,
-    "name_cn": "米该亚"
-  },
-  {
-    "id": 41,
-    "name_cn": "纳鸿"
-  },
-  {
-    "id": 42,
-    "name_cn": "哈巴谷"
-  },
-  {
-    "id": 43,
-    "name_cn": "索福尼亚"
-  },
-  {
-    "id": 44,
-    "name_cn": "哈盖"
-  },
-  {
-    "id": 45,
-    "name_cn": "匝加利亚"
-  },
-  {
-    "id": 46,
-    "name_cn": "玛拉基雅"
-  },
-  {
-    "id": 47,
-    "name_cn": "玛窦福音"
-  },
-  {
-    "id": 48,
-    "name_cn": "马尔谷福音"
-  },
-  {
-    "id": 49,
-    "name_cn": "路加福音"
-  },
-  {
-    "id": 50,
-    "name_cn": "若望福音"
-  },
-  {
-    "id": 51,
-    "name_cn": "宗徒大事录"
-  },
-  {
-    "id": 52,
-    "name_cn": "罗马书"
-  },
-  {
-    "id": 53,
-    "name_cn": "格林多前书"
-  },
-  {
-    "id": 54,
-    "name_cn": "格林多后书"
-  },
-  {
-    "id": 55,
-    "name_cn": "迦拉达书"
-  },
-  {
-    "id": 56,
-    "name_cn": "厄弗所书"
-  },
-  {
-    "id": 57,
-    "name_cn": "斐理伯书"
-  },
-  {
-    "id": 58,
-    "name_cn": "哥罗森书"
-  },
-  {
-    "id": 59,
-    "name_cn": "得撒洛尼前书"
-  },
-  {
-    "id": 60,
-    "name_cn": "得撒洛尼后书"
-  },
-  {
-    "id": 61,
-    "name_cn": "弟茂德前书"
-  },
-  {
-    "id": 62,
-    "name_cn": "弟茂德后书"
-  },
-  {
-    "id": 63,
-    "name_cn": "弟铎书"
-  },
-  {
-    "id": 64,
-    "name_cn": "费肋孟书"
-  },
-  {
-    "id": 65,
-    "name_cn": "希伯来书"
-  },
-  {
-    "id": 66,
-    "name_cn": "雅各伯书"
-  },
-  {
-    "id": 67,
-    "name_cn": "伯多禄前书"
-  },
-  {
-    "id": 68,
-    "name_cn": "伯多禄后书"
-  },
-  {
-    "id": 69,
-    "name_cn": "若望一书"
-  },
-  {
-    "id": 70,
-    "name_cn": "若望二书"
-  },
-  {
-    "id": 71,
-    "name_cn": "若望三书"
-  },
-  {
-    "id": 72,
-    "name_cn": "犹达书"
-  },
-  {
-    "id": 73,
-    "name_cn": "若望默示录"
-  }
+  { "id": 1, "name_cn": "创世纪", "abbr": "Gen", "testament": "old", "category": "torah", "short": "创" },
+  { "id": 2, "name_cn": "出谷纪", "abbr": "Ex", "testament": "old", "category": "torah", "short": "出" },
+  { "id": 3, "name_cn": "肋未纪", "abbr": "Lev", "testament": "old", "category": "torah", "short": "肋" },
+  { "id": 4, "name_cn": "户籍纪", "abbr": "Num", "testament": "old", "category": "torah", "short": "户" },
+  { "id": 5, "name_cn": "申命纪", "abbr": "Dt", "testament": "old", "category": "torah", "short": "申" },
+
+  { "id": 6, "name_cn": "若苏厄书", "abbr": "Jos", "testament": "old", "category": "history", "short": "苏" },
+  { "id": 7, "name_cn": "民长纪", "abbr": "Jdg", "testament": "old", "category": "history", "short": "民" },
+  { "id": 8, "name_cn": "卢德传", "abbr": "Ru", "testament": "old", "category": "history", "short": "卢" },
+  { "id": 9, "name_cn": "撒慕尔纪上", "abbr": "1S", "testament": "old", "category": "history", "short": "撒上" },
+  { "id": 10, "name_cn": "撒慕尔纪下", "abbr": "2S", "testament": "old", "category": "history", "short": "撒下" },
+  { "id": 11, "name_cn": "列王纪上", "abbr": "1K", "testament": "old", "category": "history", "short": "列上" },
+  { "id": 12, "name_cn": "列王纪下", "abbr": "2K", "testament": "old", "category": "history", "short": "列下" },
+  { "id": 13, "name_cn": "编年纪上", "abbr": "1Chr", "testament": "old", "category": "history", "short": "编上" },
+  { "id": 14, "name_cn": "编年纪下", "abbr": "2Chr", "testament": "old", "category": "history", "short": "编下" },
+  { "id": 15, "name_cn": "厄斯德拉上", "abbr": "Ezra", "testament": "old", "category": "history", "short": "厄上" },
+  { "id": 16, "name_cn": "厄斯德拉下", "abbr": "Ne", "testament": "old", "category": "history", "short": "厄下" },
+  { "id": 17, "name_cn": "多俾亚传", "abbr": "Tb", "testament": "old", "category": "history", "short": "多" },
+  { "id": 18, "name_cn": "友弟德传", "abbr": "Jdt", "testament": "old", "category": "history", "short": "友" },
+  { "id": 19, "name_cn": "艾斯德尔传", "abbr": "Es", "testament": "old", "category": "history", "short": "艾" },
+  { "id": 20, "name_cn": "玛加伯上", "abbr": "1Mac", "testament": "old", "category": "history", "short": "加上" },
+  { "id": 21, "name_cn": "玛加伯下", "abbr": "2Mac", "testament": "old", "category": "history", "short": "加下" },
+
+  { "id": 22, "name_cn": "约伯传", "abbr": "Job", "testament": "old", "category": "wisdom", "short": "约" },
+  { "id": 23, "name_cn": "圣咏集", "abbr": "Ps", "testament": "old", "category": "wisdom", "short": "咏" },
+  { "id": 24, "name_cn": "箴言", "abbr": "Pro", "testament": "old", "category": "wisdom", "short": "箴" },
+  { "id": 25, "name_cn": "训道篇", "abbr": "Ecl", "testament": "old", "category": "wisdom", "short": "训" },
+  { "id": 26, "name_cn": "雅歌", "abbr": "Song", "testament": "old", "category": "wisdom", "short": "歌" },
+  { "id": 27, "name_cn": "智慧篇", "abbr": "Wis", "testament": "old", "category": "wisdom", "short": "智" },
+  { "id": 28, "name_cn": "德训篇", "abbr": "Sir", "testament": "old", "category": "wisdom", "short": "德" },
+
+  { "id": 29, "name_cn": "依撒意亚", "abbr": "Is", "testament": "old", "category": "prophet_major", "short": "依" },
+  { "id": 30, "name_cn": "耶肋米亚", "abbr": "Jer", "testament": "old", "category": "prophet_major", "short": "耶" },
+  { "id": 31, "name_cn": "哀歌", "abbr": "Lm", "testament": "old", "category": "prophet_major", "short": "哀" },
+  { "id": 32, "name_cn": "巴路克", "abbr": "Bar", "testament": "old", "category": "prophet_major", "short": "巴" },
+  { "id": 33, "name_cn": "厄则克耳", "abbr": "Ezk", "testament": "old", "category": "prophet_major", "short": "则" },
+  { "id": 34, "name_cn": "达尼尔", "abbr": "Dn", "testament": "old", "category": "prophet_major", "short": "达" },
+
+  { "id": 35, "name_cn": "欧瑟亚", "abbr": "Hos", "testament": "old", "category": "prophet_minor", "short": "欧" },
+  { "id": 36, "name_cn": "岳厄尔", "abbr": "Jl", "testament": "old", "category": "prophet_minor", "short": "岳" },
+  { "id": 37, "name_cn": "亚毛斯", "abbr": "Am", "testament": "old", "category": "prophet_minor", "short": "亚" },
+  { "id": 38, "name_cn": "亚北底亚", "abbr": "Ob", "testament": "old", "category": "prophet_minor", "short": "北" },
+  { "id": 39, "name_cn": "约纳", "abbr": "Jon", "testament": "old", "category": "prophet_minor", "short": "纳" },
+  { "id": 40, "name_cn": "米该亚", "abbr": "Mic", "testament": "old", "category": "prophet_minor", "short": "米" },
+  { "id": 41, "name_cn": "纳鸿", "abbr": "Nh", "testament": "old", "category": "prophet_minor", "short": "鸿" },
+  { "id": 42, "name_cn": "哈巴谷", "abbr": "Hb", "testament": "old", "category": "prophet_minor", "short": "哈" },
+  { "id": 43, "name_cn": "索福尼亚", "abbr": "Zep", "testament": "old", "category": "prophet_minor", "short": "索" },
+  { "id": 44, "name_cn": "哈盖", "abbr": "Hg", "testament": "old", "category": "prophet_minor", "short": "盖" },
+  { "id": 45, "name_cn": "匝加利亚", "abbr": "Zec", "testament": "old", "category": "prophet_minor", "short": "匝" },
+  { "id": 46, "name_cn": "玛拉基亚", "abbr": "Mal", "testament": "old", "category": "prophet_minor", "short": "拉" },
+
+  { "id": 47, "name_cn": "玛窦福音", "abbr": "Mt", "testament": "new", "category": "gospel", "short": "玛" },
+  { "id": 48, "name_cn": "马尔谷福音", "abbr": "Mk", "testament": "new", "category": "gospel", "short": "谷" },
+  { "id": 49, "name_cn": "路加福音", "abbr": "Lk", "testament": "new", "category": "gospel", "short": "路" },
+  { "id": 50, "name_cn": "若望福音", "abbr": "Jn", "testament": "new", "category": "gospel", "short": "若" },
+
+  { "id": 51, "name_cn": "宗徒大事录", "abbr": "Acts", "testament": "new", "category": "acts", "short": "宗" },
+
+  { "id": 52, "name_cn": "罗马书", "abbr": "Rom", "testament": "new", "category": "pauline", "short": "罗" },
+  { "id": 53, "name_cn": "格林多前书", "abbr": "1Cor", "testament": "new", "category": "pauline", "short": "格前" },
+  { "id": 54, "name_cn": "格林多后书", "abbr": "2Cor", "testament": "new", "category": "pauline", "short": "格后" },
+  { "id": 55, "name_cn": "迦拉达书", "abbr": "Gal", "testament": "new", "category": "pauline", "short": "迦" },
+  { "id": 56, "name_cn": "厄弗所书", "abbr": "Eph", "testament": "new", "category": "pauline", "short": "弗" },
+  { "id": 57, "name_cn": "斐理伯书", "abbr": "Phil", "testament": "new", "category": "pauline", "short": "斐" },
+  { "id": 58, "name_cn": "哥罗森书", "abbr": "Col", "testament": "new", "category": "pauline", "short": "哥" },
+  { "id": 59, "name_cn": "得撒洛尼前书", "abbr": "1Thes", "testament": "new", "category": "pauline", "short": "得前" },
+  { "id": 60, "name_cn": "得撒洛尼后书", "abbr": "2Thes", "testament": "new", "category": "pauline", "short": "得后" },
+  { "id": 61, "name_cn": "弟茂德前书", "abbr": "1Tim", "testament": "new", "category": "pauline", "short": "弟前" },
+  { "id": 62, "name_cn": "弟茂德后书", "abbr": "2Tim", "testament": "new", "category": "pauline", "short": "弟后" },
+  { "id": 63, "name_cn": "弟铎书", "abbr": "Tit", "testament": "new", "category": "pauline", "short": "铎" },
+  { "id": 64, "name_cn": "费肋孟书", "abbr": "Phlm", "testament": "new", "category": "pauline", "short": "费" },
+  { "id": 65, "name_cn": "希伯来书", "abbr": "Heb", "testament": "new", "category": "pauline", "short": "希" },
+
+  { "id": 66, "name_cn": "雅各伯书", "abbr": "Jas", "testament": "new", "category": "catholic", "short": "雅" },
+  { "id": 67, "name_cn": "伯多禄前书", "abbr": "1P", "testament": "new", "category": "catholic", "short": "伯前" },
+  { "id": 68, "name_cn": "伯多禄后书", "abbr": "2P", "testament": "new", "category": "catholic", "short": "伯后" },
+  { "id": 69, "name_cn": "若望一书", "abbr": "1Jn", "testament": "new", "category": "catholic", "short": "若一" },
+  { "id": 70, "name_cn": "若望二书", "abbr": "2Jn", "testament": "new", "category": "catholic", "short": "若二" },
+  { "id": 71, "name_cn": "若望三书", "abbr": "3Jn", "testament": "new", "category": "catholic", "short": "若三" },
+  { "id": 72, "name_cn": "犹达书", "abbr": "Jd", "testament": "new", "category": "catholic", "short": "犹" },
+
+  { "id": 73, "name_cn": "默示录", "abbr": "Rev", "testament": "new", "category": "apocalypse", "short": "默" }
 ]

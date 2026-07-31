@@ -1,0 +1,22 @@
+{
+  "old": {
+    "label": "旧约",
+    "categories": [
+      { "key": "torah", "label": "梅瑟五书" },
+      { "key": "history", "label": "史书" },
+      { "key": "wisdom", "label": "智慧书" },
+      { "key": "prophet_major", "label": "先知书" },
+      { "key": "prophet_minor", "label": "小先知书" }
+    ]
+  },
+  "new": {
+    "label": "新约",
+    "categories": [
+      { "key": "gospel", "label": "福音" },
+      { "key": "acts", "label": "宗徒大事录" },
+      { "key": "pauline", "label": "保禄书信" },
+      { "key": "catholic", "label": "公函" },
+      { "key": "apocalypse", "label": "默示录" }
+    ]
+  }
+}

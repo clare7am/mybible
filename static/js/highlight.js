@@ -8,7 +8,6 @@ function clearWordHighlight() {
 
 /**
  * 根据当前时间（毫秒）高亮单词
- * @param {number} currentTimeMs
  */
 function highlightWordAt(currentTimeMs) {
     clearWordHighlight();
@@ -27,7 +26,6 @@ function highlightWordAt(currentTimeMs) {
         }
     });
 
-    // ✅ 只高亮一个词（防抖动）
     if (activeAlignId) {
         const activeEl = document.querySelector(
             `.word[data-align-id="${activeAlignId}"]`

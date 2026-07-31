@@ -26,7 +26,7 @@ function getOssJsonUrl(bookId, chapter) {
     const abbr = getAbbr(bookId);
     const bookStr = String(bookId).padStart(2, "0");
     const chapterStr = String(chapter).padStart(3, "0");
-    return `${OSS_JSON_BASE}/${bookStr}_${abbr}_${chapterStr}.json`;
+    return `${OSS_JSON_BASE}/${bookStr}_${abbr}_${chapterStr}.json?v=${window.APP_VERSION}`;
 }
 
 function loadVerses() {

@@ -135,3 +135,52 @@ audio.addEventListener('ended', () => {
     shouldAutoPlay = true;
     nextChapter();
 });
+
+
+/* ========= 空格键控制播放 / 暂停 ========= */
+document.addEventListener('keydown', (e) => {
+    // 只响应空格
+    if (e.code !== 'Space' && e.key !== ' ') return;
+
+    // 忽略输入框、文本域、contenteditable
+    const tag = e.target.tagName;
+    const isEditable =
+        tag === 'INPUT' ||
+        tag === 'TEXTAREA' ||
+        e.target.isContentEditable;
+
+    if (isEditable) return;
+
+    // 忽略组合键（防止和 Alt+Space / Ctrl+Space 冲突）
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+
+    e.preventDefault();      // 防止页面滚动
+    togglePlay();            // 复用已有播放逻辑
+});
+
+/* ========= 左右箭头快进 / 快退 ========= */
+const SKIP_SECONDS = 15;
+
+document.addEventListener('keydown', (e) => {
+    // 忽略输入框、文本域、contenteditable
+    const tag = e.target.tagName;
+    const isEditable =
+        tag === 'INPUT' ||
+        tag === 'TEXTAREA' ||
+        e.target.isContentEditable;
+
+    if (isEditable) return;
+
+    // 忽略组合键
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+
+    if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        audio.currentTime = Math.max(0, audio.currentTime - SKIP_SECONDS);
+    }
+
+    if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        audio.currentTime = Math.min(audio.duration || Infinity, audio.currentTime + SKIP_SECONDS);
+    }
+});
